@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\HandleInertiaNovaLicense;
 use Laravel\Nova\Actions\ActionResource;
 use Laravel\Nova\Http\Middleware\Authenticate;
 use Laravel\Nova\Http\Middleware\Authorize;
@@ -101,6 +102,7 @@ return [
     'middleware' => [
         'web',
         HandleInertiaRequests::class,
+        HandleInertiaNovaLicense::class,
         DispatchServingNovaEvent::class,
         BootTools::class,
     ],
