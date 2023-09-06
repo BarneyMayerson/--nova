@@ -46,11 +46,19 @@ class Book extends Resource
         return [
             ID::make()->sortable(),
 
-            Text::make('Title'),
+            Text::make('Title')
+                ->sortable()
+                ->required(),
 
-            Number::make('Pages', 'number_of_pages'),
+            Number::make('Pages', 'number_of_pages')
+                ->filterable()
+                ->hideFromIndex()
+                ->required(),
 
-            Number::make('Copies', 'number_of_copies'),
+            Number::make('Copies', 'number_of_copies')
+                ->sortable()
+                ->required()
+                ->help('The total number of copies of this book that the library owns.'),
         ];
     }
 
