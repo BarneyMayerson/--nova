@@ -53,7 +53,9 @@ class Book extends Resource
 
             Text::make('Title')
                 ->sortable()
-                ->required(),
+                ->rules(['required', 'string', 'min:1', 'max:255'])
+                ->creationRules('unique:books,title')
+                ->updateRules('unique:books,title,{{resourceId}}'),
 
             Image::make('Cover')
                 ->path('cover'),
@@ -65,7 +67,7 @@ class Book extends Resource
             Number::make('Pages', 'number_of_pages')
                 ->filterable()
                 ->hideFromIndex()
-                ->required(),
+                ->rules(['required', 'integer', 'min:1', 'max:10000']),
 
             Number::make('Copies', 'number_of_copies')
                 ->sortable()
