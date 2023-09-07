@@ -51,14 +51,14 @@ class Book extends Resource
         return [
             ID::make()->sortable(),
 
+            Image::make('Cover')
+                ->path('cover'),
+
             Text::make('Title')
                 ->sortable()
                 ->rules(['required', 'string', 'min:1', 'max:255'])
                 ->creationRules('unique:books,title')
                 ->updateRules('unique:books,title,{{resourceId}}'),
-
-            Image::make('Cover')
-                ->path('cover'),
 
             Trix::make('Blurb')
                 ->alwaysShow()
