@@ -3,8 +3,10 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
@@ -38,6 +40,7 @@ class Book extends Resource
         'id',
         'title',
         'blurb',
+        'author.name',
     ];
 
     /**
@@ -59,6 +62,13 @@ class Book extends Resource
                 ->rules(['required', 'string', 'min:1', 'max:255'])
                 ->creationRules('unique:books,title')
                 ->updateRules('unique:books,title,{{resourceId}}'),
+
+            BelongsTo::make('Author')
+                ->sortable(),
+
+            BelongsTo::make('Publisher')
+                ->filterable()
+                ->hideFromIndex(),
 
             Trix::make('Blurb')
                 ->alwaysShow()
@@ -85,6 +95,12 @@ class Book extends Resource
             
             URL::make('Purchase URL')
                 ->displayUsing(fn($value) => $value ? parse_url($value, PHP_URL_HOST) : null),
+
+            BelongsTo::make('Genre'),
+
+            BelongsTo::make('Subgenre', resource: Genre::class),
+
+            HasMany::make('Audio Recordings', 'recordings', resource: Recording::class),
         ];
     }
 
