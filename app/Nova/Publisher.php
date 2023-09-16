@@ -3,6 +3,8 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\File;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\ID;
@@ -51,6 +53,20 @@ class Publisher extends Resource
             Avatar::make('Logo')
                 ->nullable()
                 ->path('publishers')
+                ->thumbnail(function($value, $disk) {
+                    return $value
+                        ? Str::isUrl($value)
+                            ? $value
+                            : Storage::disk($disk)->url($value)
+                        : null;
+                })
+                ->preview(function($value, $disk) {
+                    return $value
+                        ? Str::isUrl($value)
+                            ? $value
+                            : Storage::disk($disk)->url($value)
+                        : null;
+                })
                 ->rules('nullable', File::image()->max(1024 * 2)),
 
             Text::make('Name')
