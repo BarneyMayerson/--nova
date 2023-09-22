@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\FormData;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\MorphMany;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
@@ -131,6 +132,8 @@ class Book extends Resource
 
             BelongsToMany::make('Current Loans', resource: Customer::class)
                 ->fields(new LoanFields()),
+
+            MorphMany::make('Reviews'),
         ];
     }
 
