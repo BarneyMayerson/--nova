@@ -53,20 +53,8 @@ class Publisher extends Resource
             Avatar::make('Logo')
                 ->nullable()
                 ->path('publishers')
-                ->thumbnail(function($value, $disk) {
-                    return $value
-                        ? Str::isUrl($value)
-                            ? $value
-                            : Storage::disk($disk)->url($value)
-                        : null;
-                })
-                ->preview(function($value, $disk) {
-                    return $value
-                        ? Str::isUrl($value)
-                            ? $value
-                            : Storage::disk($disk)->url($value)
-                        : null;
-                })
+                ->thumbnail(fn($value, $disk) => $this->imageUrl($value, $disk))
+                ->preview(fn($value, $disk) => $this->imageUrl($value, $disk))
                 ->rules('nullable', File::image()->max(1024 * 2)),
 
             Text::make('Name')
@@ -120,5 +108,14 @@ class Publisher extends Resource
     public function actions(NovaRequest $request)
     {
         return [];
+    }
+
+    private function imageUrl(?string $value, ?string $disk): ?string
+    {
+        if (Str::isUrl($value)) {
+            return $value;
+        }
+
+        return $value ? Storage::disk($disk)->url($value) : null;       
     }
 }
