@@ -6,8 +6,13 @@ use Illuminate\Support\Carbon;
 use Laravel\Nova\Filters\DateFilter;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class LoanTimeframeToFilter extends DateFilter
+class LoanTimeframeFilter extends DateFilter
 {
+    public function __construct(private string $operator)
+    {
+        
+    }
+
     /**
      * Apply the filter to the given query.
      *
@@ -20,6 +25,20 @@ class LoanTimeframeToFilter extends DateFilter
     {
         $value = Carbon::parse($value);
 
-        return $query->whereHas('allLoans', fn($query) => $query->where('book_customer.created_at', '<', $value));
+        return $query->whereHas('allLoans', fn($query) => $query->where('book_customer.created_at', $this->operator, $value));
+    }
+
+    public function name()
+    {
+        return match($this->operator) {
+            '<=' => 'Loans before',
+            '>' => 'Loans after',
+            default => 'Loans on',
+        };
+    }
+
+    public function key()
+    {
+        return "loan-filter-{$this->name()}";
     }
 }

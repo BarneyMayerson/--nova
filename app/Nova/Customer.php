@@ -3,8 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Filters\HasReviewsFilter;
-use App\Nova\Filters\LoanTimeframeFromFilter;
-use App\Nova\Filters\LoanTimeframeToFilter;
+use App\Nova\Filters\LoanTimeframeFilter;
 use App\Nova\Relationships\LoanFields;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
@@ -101,8 +100,8 @@ class Customer extends Resource
     {
         return [
             new HasReviewsFilter(),
-            new LoanTimeframeFromFilter(),
-            new LoanTimeframeToFilter(),
+            new LoanTimeframeFilter('>'),
+            new LoanTimeframeFilter('<='),
         ];
     }
 
