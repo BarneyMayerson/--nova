@@ -2,6 +2,7 @@
 
 namespace App\Nova\Lenses;
 
+use App\Nova\Filters\StockFilter;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Number;
@@ -32,15 +33,18 @@ class BookStock extends Lens
      */
     public static function query(LensRequest $request, $query)
     {
-        return $request->withoutTableOrderPrefix()->withOrdering($request->withFilters(
-            $query->select('id', 'cover', 'title', 'number_of_copies')
+        return $request->withOrdering($request->withFilters(
+            $query->fromSub(fn($query) => $query
+                ->from('books')    
+                ->select('id', 'cover', 'title', 'number_of_copies')
                 ->addSelect([
                     'copies_on_loan' => fn($query) => $query->selectRaw('count(*)')
                         ->from('book_customer')
                         ->whereColumn('book_customer.book_id', 'books.id')
                         ->whereNull('book_customer.returned_at'),
                     'copies_in_stock' => fn($query) => $query->selectRaw('number_of_copies - copies_on_loan'),
-                ])
+                ]),
+                'books')
         ));
     }
 
@@ -86,7 +90,9 @@ class BookStock extends Lens
      */
     public function filters(NovaRequest $request)
     {
-        return [];
+        return [
+            new StockFilter(),
+        ];
     }
 
     /**
