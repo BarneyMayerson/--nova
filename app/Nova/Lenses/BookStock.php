@@ -18,7 +18,10 @@ class BookStock extends Lens
      *
      * @var array
      */
-    public static $search = [];
+    public static $search = [
+        'id',
+        'title',
+    ];
 
     /**
      * Get the query builder / paginator for the lens.
