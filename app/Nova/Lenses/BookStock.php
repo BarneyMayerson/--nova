@@ -29,7 +29,7 @@ class BookStock extends Lens
      */
     public static function query(LensRequest $request, $query)
     {
-        return $request->withOrdering($request->withFilters(
+        return $request->withoutTableOrderPrefix()->withOrdering($request->withFilters(
             $query->select('id', 'cover', 'title', 'number_of_copies')
                 ->addSelect([
                     'copies_on_loan' => fn($query) => $query->selectRaw('count(*)')
@@ -56,11 +56,11 @@ class BookStock extends Lens
 
             Text::make('Title'),
 
-            Number::make('Number of Copies'),
+            Number::make('Number of Copies')->sortable(),
 
-            Number::make('Copies on Loan'),
+            Number::make('Copies on Loan')->sortable(),
 
-            Number::make('Copies in Stock'),
+            Number::make('Copies in Stock')->sortable(),
         ];
     }
 
