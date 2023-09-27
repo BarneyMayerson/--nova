@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\DestroyUnverifiedReviews;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Laravel\Nova\Actions\Action;
@@ -153,6 +154,11 @@ class Review extends Resource
                         'verified_at' => now()
                     ]);
             }),
+
+            (new DestroyUnverifiedReviews())
+                ->standalone()
+                ->confirmText('Are you sure you want to run this action? THis action cannot be undone!')
+                ->confirmButtonText('Destroy!'),
         ];
     }
 }
