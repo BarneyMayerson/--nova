@@ -2,7 +2,10 @@
 
 namespace App\Nova;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Laravel\Nova\Actions\Action;
+use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
@@ -142,6 +145,14 @@ class Review extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            Action::using('Verify', function(ActionFields $fields, Collection $models) {
+                \App\Models\Review::whereKey($models->pluck('id'))
+                    ->whereNull('verified_at')
+                    ->update([
+                        'verified_at' => now()
+                    ]);
+            }),
+        ];
     }
 }
