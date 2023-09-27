@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\SendCustomerDiscount;
 use App\Nova\Filters\HasReviewsFilter;
 use App\Nova\Filters\LoanTimeframeFilter;
 use App\Nova\Relationships\LoanFields;
@@ -124,6 +125,8 @@ class Customer extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            resolve(SendCustomerDiscount::class),
+        ];
     }
 }
