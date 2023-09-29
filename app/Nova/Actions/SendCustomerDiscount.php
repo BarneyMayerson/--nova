@@ -12,7 +12,7 @@ use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class SendCustomerDiscount extends Action
+class SendCustomerDiscount extends Action implements ShouldQueue
 {
     use InteractsWithQueue, Queueable;
 
