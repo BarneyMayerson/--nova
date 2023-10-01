@@ -12,4 +12,9 @@ class StarRating extends Field
      * @var string
      */
     public $component = 'star-rating';
+
+    public function maxStars(int $max)
+    {
+        return $this->withMeta(['maxStars' => $max]);
+    }
 }

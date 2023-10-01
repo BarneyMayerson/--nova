@@ -1,6 +1,6 @@
 <template>
   <ul v-if="fieldValue" class="flex text-yellow-500">
-    <li v-for="n in 5">
+    <li v-for="n in maxStars">
       <svg
         v-if="n <= fieldValue"
         viewBox="0 0 24 24"
@@ -39,6 +39,10 @@ export default {
   computed: {
     fieldValue() {
       return this.field.displayedAs || this.field.value;
+    },
+
+    maxStars() {
+      return this.field.maxStars ?? 5;
     },
   },
 };

@@ -91,6 +91,7 @@ class Review extends Resource
                 ->rules('required', 'string', 'max:65535'),
 
             StarRating::make('Stars')
+                ->maxStars(6)
                 ->rules('nullable', 'integer', 'min:1', 'max:5'),
 
             DateTime::make('Verified At')

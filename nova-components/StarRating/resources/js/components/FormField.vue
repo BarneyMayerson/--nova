@@ -9,7 +9,7 @@
       <input
         :id="field.attribute"
         min="1"
-        max="5"
+        :max="field.maxStars ?? 5"
         type="number"
         class="w-full form-control form-input form-input-bordered"
         :class="errorClasses"
