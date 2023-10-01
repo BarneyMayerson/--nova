@@ -14,7 +14,8 @@
         "laravel/framework": "^10.10",
         "laravel/nova": "^4.27",
         "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "readit/star-rating": "@dev"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -72,6 +73,10 @@
         {
             "type": "composer",
             "url": "https://laravelsatis.com"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/StarRating"
         }
     ]
 }

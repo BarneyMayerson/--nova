@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d91a8c02f820d6cdc9573471c45f0e3c",
+    "content-hash": "ecf764f91872533c5dd7bdd00eeafb50",
     "packages": [
         {
             "name": "brick/math",
@@ -3978,6 +3978,42 @@
                 }
             ],
             "time": "2023-09-01T06:07:32+00:00"
+        },
+        {
+            "name": "readit/star-rating",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/StarRating",
+                "reference": "3308b7aa86902fb401eb47d0e97ddc0ae96000c3"
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Readit\\StarRating\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Readit\\StarRating\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "spatie/once",
@@ -9088,7 +9124,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "readit/star-rating": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

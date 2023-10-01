@@ -17,6 +17,7 @@ use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Query\Search\SearchableMorphToRelation;
 use Laravel\Nova\Query\Search\SearchableText;
+use Readit\StarRating\StarRating;
 
 class Review extends Resource
 {
@@ -89,9 +90,7 @@ class Review extends Resource
             Trix::make('Body')
                 ->rules('required', 'string', 'max:65535'),
 
-            Number::make('Stars')
-                ->min(1)
-                ->max(5)
+            StarRating::make('Stars')
                 ->rules('nullable', 'integer', 'min:1', 'max:5'),
 
             DateTime::make('Verified At')
