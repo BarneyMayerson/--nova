@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae5fab76d647d2d71e5311128f05272f",
+    "content-hash": "ebf677e524fc88137a68333bb05fb292",
     "packages": [
         {
             "name": "brick/math",
@@ -3978,6 +3978,42 @@
                 }
             ],
             "time": "2023-09-01T06:07:32+00:00"
+        },
+        {
+            "name": "readit/nyt-bestsellers",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/NytBestsellers",
+                "reference": "6a9b630f5d380a79b6e3dd3675197fd01bbd2235"
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Readit\\NytBestsellers\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Readit\\NytBestsellers\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova tool.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "readit/popular-books-bar-chart",
@@ -9162,7 +9198,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "readit/star-rating": 20,
-        "readit/popular-books-bar-chart": 20
+        "readit/popular-books-bar-chart": 20,
+        "readit/nyt-bestsellers": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
